@@ -240,11 +240,12 @@ bool NativeMacPasteboard::fetchDataFromClipboard (juce::MemoryBlock& memoryBlock
 static int gSelectedMenuItemID = 0;
 
 // Target object to handle menu item selection - MUST be at global/file scope
-@interface MenuItemTarget : NSObject
+// Renamed to NativeMacMenuItemTarget to avoid conflicts with JUCE's internal MenuItemTarget
+@interface NativeMacMenuItemTarget : NSObject
 - (void)menuItemSelected:(id)sender;
 @end
 
-@implementation MenuItemTarget
+@implementation NativeMacMenuItemTarget
 - (void)menuItemSelected:(id)sender
 {
     NSMenuItem* item = (NSMenuItem*)sender;
@@ -259,7 +260,7 @@ namespace juce
 // Helper function to recursively build NSMenu from JUCE PopupMenu
 // Returns the menu and optionally the checked item (via output parameter)
 static NSMenu* buildNSMenuFromJuceMenu (const juce::PopupMenu& juceMenu,
-                                       MenuItemTarget* target,
+                                       NativeMacMenuItemTarget* target,
                                        NSMenuItem** outCheckedItem = nullptr,
                                        const juce::String& menuTitle = juce::String(),
                                        bool useSmallSize = false)
@@ -342,7 +343,7 @@ int NativeMacPopupMenu::showPopupMenu (const juce::PopupMenu& menu,
         gSelectedMenuItemID = 0;
 
         // Create target object
-        MenuItemTarget* target = [[MenuItemTarget alloc] init];
+        NativeMacMenuItemTarget* target = [[NativeMacMenuItemTarget alloc] init];
 
         // Get current mouse location in screen coordinates
         NSPoint mouseLocation = [NSEvent mouseLocation];
@@ -408,7 +409,7 @@ int NativeMacPopupMenu::showPopupMenuAt (const juce::PopupMenu& menu,
         gSelectedMenuItemID = 0;
 
         // Create target object
-        MenuItemTarget* target = [[MenuItemTarget alloc] init];
+        NativeMacMenuItemTarget* target = [[NativeMacMenuItemTarget alloc] init];
 
         // Build the native menu and get the checked item if any
         NSMenuItem* checkedItem = nullptr;
@@ -458,7 +459,7 @@ int NativeMacPopupMenu::showPopupMenuAtFixed (const juce::PopupMenu& menu,
         gSelectedMenuItemID = 0;
 
         // Create target object
-        MenuItemTarget* target = [[MenuItemTarget alloc] init];
+        NativeMacMenuItemTarget* target = [[NativeMacMenuItemTarget alloc] init];
 
         // Build the native menu without tracking checked items
         // This ensures the menu appears at the exact position without centering
