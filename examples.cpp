@@ -222,7 +222,7 @@ void exampleMessageThreadSafe()
 //==============================================================================
 
 //==============================================================================
-// Example 10: Basic Native Popup Menu
+// Example 10: Basic Native Popup Menu (No Centering)
 //==============================================================================
 void exampleBasicPopupMenu()
 {
@@ -234,7 +234,8 @@ void exampleBasicPopupMenu()
     menu.addItem(3, "Import Bank");
     menu.addItem(4, "Export Bank", true, false);  // Disabled item
 
-    // Show at current mouse position
+    // Show at current mouse position - menu appears exactly at cursor
+    // centerOnCheckedItem defaults to false, so no centering behavior
     int result = juce::NativeMacPopupMenu::showPopupMenu(menu);
 
     if (result == 1)
@@ -246,9 +247,36 @@ void exampleBasicPopupMenu()
 }
 
 //==============================================================================
-// Example 11: Preset Browser with Auto-Scroll
+// Example 11: Preset Browser with Centering (Using centerOnCheckedItem)
 //==============================================================================
-void examplePresetBrowser()
+void examplePresetBrowserWithCentering()
+{
+    juce::PopupMenu menu;
+    int currentPresetIndex = 25;  // Current selection
+
+    // Add 50 presets
+    for (int i = 1; i <= 50; ++i)
+    {
+        bool isCurrentPreset = (i == currentPresetIndex);
+        menu.addItem(i, "Preset " + juce::String(i), true, isCurrentPreset);
+    }
+
+    // Show menu at mouse with centering on checked item
+    // The menu will automatically center on "Preset 25" at the cursor
+    // Parameters: menu, parentComponent, useSmallSize, centerOnCheckedItem
+    int result = juce::NativeMacPopupMenu::showPopupMenu(menu, nullptr, true, true);
+
+    if (result > 0)
+    {
+        DBG("Selected preset: " + juce::String(result));
+        currentPresetIndex = result;
+    }
+}
+
+//==============================================================================
+// Example 12: Preset Browser with Auto-Scroll (Using showPopupMenuAt)
+//==============================================================================
+void examplePresetBrowserAutoScroll()
 {
     juce::PopupMenu menu;
     int currentPresetIndex = 25;  // Current selection
@@ -263,7 +291,7 @@ void examplePresetBrowser()
     // Get position to show menu (e.g., below a button)
     juce::Point<int> screenPos(100, 200);
 
-    // Show menu with auto-scroll to checked item
+    // Show menu with auto-scroll to checked item using showPopupMenuAt
     // The menu will automatically scroll to show "Preset 25"
     int result = juce::NativeMacPopupMenu::showPopupMenuAt(menu, screenPos);
 
@@ -275,7 +303,7 @@ void examplePresetBrowser()
 }
 
 //==============================================================================
-// Example 12: ComboBox-Style Fixed Position Menu
+// Example 13: ComboBox-Style Fixed Position Menu
 //==============================================================================
 void exampleComboBoxMenu()
 {

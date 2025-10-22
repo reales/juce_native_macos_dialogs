@@ -151,7 +151,7 @@ int result = juce::NativeMacPopupMenu::showPopupMenu(menu);
 ```
 
 ```cpp
-// Preset browser with auto-scroll to current selection
+// Preset browser with centering at mouse cursor
 juce::PopupMenu menu;
 for (int i = 1; i <= 50; ++i)
 {
@@ -159,7 +159,20 @@ for (int i = 1; i <= 50; ++i)
     menu.addItem(i, "Preset " + juce::String(i), true, isCurrent);
 }
 
-// Menu auto-scrolls to show checked item
+// Menu centers on checked item at cursor (4th parameter = true)
+int result = juce::NativeMacPopupMenu::showPopupMenu(menu, nullptr, true, true);
+```
+
+```cpp
+// Preset browser with auto-scroll at specific position
+juce::PopupMenu menu;
+for (int i = 1; i <= 50; ++i)
+{
+    bool isCurrent = (i == currentPresetIndex);
+    menu.addItem(i, "Preset " + juce::String(i), true, isCurrent);
+}
+
+// Menu auto-scrolls to show checked item at position
 juce::Point<int> position(100, 200);
 int result = juce::NativeMacPopupMenu::showPopupMenuAt(menu, position);
 ```
@@ -252,10 +265,11 @@ Shows a native macOS popup menu at the current mouse location.
 - `menu` - The JUCE PopupMenu to display
 - `parentComponent` - Optional parent component (default: nullptr)
 - `useSmallSize` - If true, uses small menu font size for more compact display (default: false)
+- `centerOnCheckedItem` - If true, centers the menu on any checked item (default: false)
 
 **Returns:** Selected menu item ID, or 0 if cancelled
 
-**Use Case:** Context menus, right-click menus
+**Use Case:** Context menus, right-click menus, preset browsers (with centering enabled)
 
 ---
 
@@ -432,11 +446,12 @@ menu.addItem(2, "Option 2");
 
 ### When to Use Each Function
 
-| Function | Use Case | Auto-Scroll | Example |
-|----------|----------|-------------|---------|
-| `showPopupMenu()` | Context menus, right-click | No | Right-click menu |
-| `showPopupMenuAt()` | Preset/bank browsers | Yes | 128 presets, scroll to #64 |
-| `showPopupMenuAtFixed()` | ComboBox dropdowns | No | Voice count: 1/2/4/6/8 |
+| Function | Use Case | Auto-Scroll/Center | Example |
+|----------|----------|-------------------|---------|
+| `showPopupMenu()` | Context menus, right-click | Optional (via parameter) | Right-click menu |
+| `showPopupMenu(..., true)` | Preset browser at cursor | Yes (centers on checked) | 128 presets, center #64 |
+| `showPopupMenuAt()` | Preset browsers at position | Yes (auto-scroll) | Below button, scroll to #64 |
+| `showPopupMenuAtFixed()` | ComboBox dropdowns | No (exact position) | Voice count: 1/2/4/6/8 |
 
 ### Real-World Example
 
