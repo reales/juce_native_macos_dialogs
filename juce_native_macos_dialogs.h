@@ -165,15 +165,17 @@ public:
     //==============================================================================
     /** Shows a native macOS popup menu at the current mouse location.
 
-        @param menu              The JUCE PopupMenu to display
-        @param parentComponent   Optional parent component for coordinate conversion
-        @param useSmallSize      If true, uses small menu font size (more compact)
+        @param menu                  The JUCE PopupMenu to display
+        @param parentComponent       Optional parent component for coordinate conversion
+        @param useSmallSize          If true, uses small menu font size (more compact)
+        @param centerOnCheckedItem   If true, centers menu on checked item (default: false)
 
         @returns the selected menu item ID, or 0 if cancelled
     */
     static int showPopupMenu (const juce::PopupMenu& menu,
                              juce::Component* parentComponent = nullptr,
-                             bool useSmallSize = false);
+                             bool useSmallSize = false,
+                             bool centerOnCheckedItem = false);
 
     //==============================================================================
     /** Shows a native macOS popup menu at a specific screen position.

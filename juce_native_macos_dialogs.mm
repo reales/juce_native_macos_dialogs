@@ -335,7 +335,8 @@ static NSMenu* buildNSMenuFromJuceMenu (const juce::PopupMenu& juceMenu,
 //==============================================================================
 int NativeMacPopupMenu::showPopupMenu (const juce::PopupMenu& menu,
                                       juce::Component* parentComponent,
-                                      bool useSmallSize)
+                                      bool useSmallSize,
+                                      bool centerOnCheckedItem)
 {
     @autoreleasepool
     {
@@ -355,9 +356,11 @@ int NativeMacPopupMenu::showPopupMenu (const juce::PopupMenu& menu,
             view = (NSView*) parentComponent->getWindowHandle();
         }
 
-        // Build the native menu and get the checked item if any
+        // Build the native menu and optionally get the checked item
         NSMenuItem* checkedItem = nullptr;
-        NSMenu* nsMenu = buildNSMenuFromJuceMenu (menu, target, &checkedItem, juce::String(), useSmallSize);
+        NSMenu* nsMenu = buildNSMenuFromJuceMenu (menu, target,
+                                                  centerOnCheckedItem ? &checkedItem : nullptr,
+                                                  juce::String(), useSmallSize);
 
         // Get or create an event for the menu
         NSEvent* currentEvent = [NSApp currentEvent];
@@ -382,8 +385,10 @@ int NativeMacPopupMenu::showPopupMenu (const juce::PopupMenu& menu,
         }
         else
         {
-            // When no view is available, use the positioning method instead
-            [nsMenu popUpMenuPositioningItem: checkedItem
+            // When no view is available, use the positioning method
+            // If centerOnCheckedItem is true, pass checkedItem to center on it
+            // Otherwise pass nil to show menu at exact mouse position
+            [nsMenu popUpMenuPositioningItem: (centerOnCheckedItem ? checkedItem : nil)
                                   atLocation: mouseLocation
                                       inView: nil];
         }
