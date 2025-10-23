@@ -571,20 +571,11 @@ See [version history](#version-history) above for detailed changes.
 
 ## License
 
-This module follows the same license as your JUCE project (GPL/Commercial).
-
-## Credits
-
-- Native dialog implementations from ob-xd-3 project
-- Native menu implementations based on production code from ob-xd-3
-- Submenu crash fix from commit 3f47ce8
-- Auto-scroll implementation from commit 4d8e007
-- Fixed positioning from commit f9e658c
+This module is licensed under the MIT License.
 
 ## Support
 
-For issues, feature requests, or contributions, please visit:
-[Your GitHub repository]
+For issues, feature requests, or contributions, please visit https://github.com/reales/juce_native_macos_dialogs/
 
 ## See Also
 
@@ -594,3 +585,4 @@ For issues, feature requests, or contributions, please visit:
 - Apple NSAlert Documentation: https://developer.apple.com/documentation/appkit/nsalert
 - Apple NSMenu Documentation: https://developer.apple.com/documentation/appkit/nsmenu
 - Apple UTI Documentation: https://developer.apple.com/documentation/uniformtypeidentifiers
+
