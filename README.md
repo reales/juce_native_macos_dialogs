@@ -547,27 +547,7 @@ Native menus also use less memory and render instantly on Retina displays.
 
 ## Version History
 
-### 2.0.0 (Current)
-- ✨ Added native popup menu support (`NativeMacPopupMenu`)
-- ✨ Three menu display modes: standard, auto-scroll, and fixed position
-- ✨ Full support for hierarchical menus and submenus
-- ✨ Automatic coordinate system conversion (JUCE ↔ macOS)
-- ✨ Checkmark display and auto-scroll to selected items
-- 🐛 Fixed submenu crash when positioning checked items
-- 🐛 Fixed Carbon type conflicts with proper #define guards
-- 📚 Added 16 comprehensive examples
-- 📚 Extensive documentation for menu implementation
-- 🔧 Added Foundation framework dependency
-
-### 1.0.0
-- Initial release
-- Native dialog boxes (text input, info, confirm)
-- Custom clipboard support with UTI types
-- Plugin-friendly focus restoration
-
-## Changelog
-
-See [version history](#version-history) above for detailed changes.
+See the [GitHub Releases](https://github.com/reales/juce_native_macos_dialogs/releases) page for detailed version history and changelogs.
 
 ## License
 
